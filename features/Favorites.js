@@ -1,4 +1,4 @@
-var bby = require('bestbuy')('');
+var bby = require('bestbuy')('TGp7jkZIbKOzfRTDzkofjo2O ');
 function a() {
   bby.categories('name=Sony DSLR Camera*', { show: 'path' }).then(function(data) {
     // The util package is loaded to print the complete object structure

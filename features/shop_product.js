@@ -16,16 +16,8 @@ module.exports = function(controller) {
     ],
     'message',
     async (bot, message) => {
-      // console.log('+-+-+');
-      // console.log(a);
-      console.log(message.text);
-      var b = await getElem.getCategory(message.text);
-      // myFunc();
-      console.log(b);
-      const mas = await getElem.getObjElem(b);
-      console.log(mas);
-      //      var mas = getObjElem(a);
-
+      var temp = await getElem.getCategory(message.text);
+      const mas = await getElem.getObjElem(temp);
       await bot.reply(message, {
         attachment: {
           type: 'template',

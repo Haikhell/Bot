@@ -16,14 +16,15 @@ module.exports = function(controller) {
     ],
     'message',
     async (bot, message) => {
-      var temp = await getElem.getCategory(message.text);
-      const mas = await getElem.getObjElem(temp);
+      var temp = await getElem.getCategory(message.message.quick_reply.payload);
+      const mas = await getElem.getObjElement(temp);
+      const obj = await getElem.getPagin(mas, 0);
       await bot.reply(message, {
         attachment: {
           type: 'template',
           payload: {
             template_type: 'generic',
-            elements: mas
+            elements: obj
           }
         }
       });

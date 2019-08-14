@@ -10,6 +10,5 @@ module.exports = function(controller) {
 
   controller.on('message', async (bot, message) => {
     await bot.reply(message, `Echo: ${message.text}`);
-    console.log(message);
   });
 };

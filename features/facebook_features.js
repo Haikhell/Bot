@@ -2,7 +2,9 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License.
  */
-
+const getAllCategory = require('../api_bestbuy/get_shop_category');
+const Favorites_add = require('../helper/favorite_add');
+const getObj = require('../api_bestbuy/get_obj_elem');
 module.exports = function(controller) {
   /**
      * Detect when a message has a sticker attached
@@ -13,8 +15,11 @@ module.exports = function(controller) {
 
   controller.on('facebook_postback', async (bot, message) => {
     if (message.text === 'Cataloge') {
-      await bot.reply(message, 'catalog');
-    } else if (message.text === 'Add to favorite') {
+    } else if (message.postback.title === 'Add to favorite') {
+      await bot.reply(message, await Favorites_add(message.user, message.text));
+    } else if (message.postback.title === 'next') {
+      console.log(message);
+      Favorites_add(message.user, message.text);
     } else {
       await bot.reply(message, {
         text: 'Here is a menu!',
@@ -22,7 +27,7 @@ module.exports = function(controller) {
         quick_replies: [
           {
             title: 'My purchases',
-            payload: '123'
+            payload: 'My purchases'
           },
           {
             title: 'Shop',

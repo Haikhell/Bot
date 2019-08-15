@@ -1,33 +1,43 @@
-var getElem = require('../api_bestbuy/get_obj_elem');
+var getElem = require('../helpers/api_bestbuy/get_obj_elem');
+var bby = require('bestbuy')(process.env.BESTBUY_API_TOKEN);
 
 module.exports = function(controller) {
   controller.hears(
     [
       'Gift Ideas',
       'TV & Home Theater',
-      'TVs',
-      'All Flat-Screen TVs',
-      'TV/DVD Combos',
-      'Blu-ray & DVD Players',
-      'Blu-ray Players',
-      'DVD Players',
-      'Digital TV Tuners & Converters',
-      'TV & Internet Service Providers'
+      'Audio',
+      'Musical Instruments',
+      'Car Electronics & GPS',
+      'Cameras & Camcorders',
+      'Computers & Tablets',
+      'Movies & Music',
+      'Video Games',
+      'Cell Phones',
+      'Appliances'
     ],
     'message',
     async (bot, message) => {
-      var temp = await getElem.getCategory(message.message.quick_reply.payload);
-      const mas = await getElem.getObjElement(temp);
-      const obj = await getElem.getPagin(mas, 0);
+      let temp = await getElem.getCategory(message.message.quick_reply.payload);
+      let quick_reply_buttons = await getElem.getButtonsCategory(temp, 0, message.message.quick_reply.payload);
       await bot.reply(message, {
-        attachment: {
-          type: 'template',
-          payload: {
-            template_type: 'generic',
-            elements: obj
-          }
-        }
+        text: ' Sub categori',
+        quick_replies: quick_reply_buttons
       });
     }
+
+    //     const mas = await getElem.getObjElement(temp);
+    //     const obj = await getElem.getPagin(mas, 0);
+    //     await bot.reply(message, {
+    //       attachment: {
+    //         type: 'template',
+    //         payload: {
+    //           template_type: 'generic',
+    //           elements: obj
+    //         }
+    //       }
+    //     });
+    //   }
+    // );
   );
 };

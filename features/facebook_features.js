@@ -2,6 +2,7 @@ const Favorites_add = require('../helpers/db_function/favorite_add');
 const favorite_get = require('../helpers/db_function/favorite_get');
 const getObj = require('../helpers/api_bestbuy/get_obj_elem');
 const buyProduct = require('../helpers/db_function/buy_set');
+const getAllCategory = require('../helpers/api_bestbuy/get_shop_category');
 
 module.exports = function(controller) {
   controller.on('facebook_postback', async (bot, message) => {
@@ -24,8 +25,12 @@ module.exports = function(controller) {
       } else {
         favorite_get.fGet(message.user, tempStr[1]);
       }
-    } else if (message.postback.title === 'Favorites') {
-      favorite_get.fGet(message.user, 0);
+    } else if (message.postback.title === 'Cataloge') {
+      const categ = await getAllCategory();
+      await bot.reply(message, {
+        text: 'All shop category',
+        quick_replies: categ
+      });
     } else if (message.postback.title === 'Add to favorite') {
       await bot.reply(message, await Favorites_add(message.user, message.text));
     } else if (message.postback.title === 'buy') {

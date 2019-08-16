@@ -1,5 +1,5 @@
-var getBuyProduct = require('../helpers/db_function/buy_get');
-
+const getBuyProduct = require('../helpers/db_function/buy_get');
+const Eror = require('../Errors');
 module.exports = function(controller) {
   controller.hears([ 'My purchases' ], 'message', async (bot, message) => {
     try {
@@ -15,7 +15,7 @@ module.exports = function(controller) {
         }
       });
     } catch (error) {
-      bot.reply(message, 'You have not made purchases your list is empty');
+      bot.reply(message, await Eror(305));
     }
   });
 };

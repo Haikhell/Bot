@@ -9,11 +9,6 @@ module.exports.getProduct = async function getProduct(id, page) {
   });
   return data.products;
 };
-module.exports.getCategory = async function getCategory(name) {
-  let data = await bby.categories(`name=${name}`, { show: 'all' });
-  return data.categories[0].subCategories;
-};
-
 module.exports.getButtonsCategory = async function getButtonsCategory(masiv, page, nameCategory) {
   try {
     const lengthOfPart = 8;
@@ -77,6 +72,11 @@ module.exports.getPlaginProduct = async function getPlaginProduct(masiv, page, i
   }
 
   return buttonsObj;
+};
+
+module.exports.getCategory = async function getCategory(name) {
+  let data = await bby.categories(`name=${name}`, { show: 'all' });
+  return data.categories[0].subCategories;
 };
 
 module.exports.getObjElement = async function getObjElement(masiv) {

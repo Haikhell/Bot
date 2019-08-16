@@ -1,6 +1,4 @@
 var getElem = require('../helpers/api_bestbuy/get_obj_elem');
-var bby = require('bestbuy')(process.env.BESTBUY_API_TOKEN);
-
 module.exports = function(controller) {
   controller.hears(
     [

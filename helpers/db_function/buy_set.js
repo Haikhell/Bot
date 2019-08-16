@@ -1,9 +1,10 @@
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO_URI;
-const client = new MongoClient(uri, { useNewUrlParser: true });
 const today = new Date();
-
+const delF = require('../db_function/delete_favorites');
 module.exports = async function favoritesSave(userId, skuid) {
+  const client = new MongoClient(uri, { useNewUrlParser: true });
+
   let dd = await String(today.getDate()).padStart(2, '0');
   let mm = await String(today.getMonth() + 1).padStart(2, '0');
   let yyyy = await today.getFullYear();
@@ -33,6 +34,7 @@ module.exports = async function favoritesSave(userId, skuid) {
       data: dataBuy
     });
     await addUsers.findOneAndUpdate({ userId }, { $set: { products: pr } });
+    await delF(userId, skuid);
     client.close();
   }
   return 'bought';

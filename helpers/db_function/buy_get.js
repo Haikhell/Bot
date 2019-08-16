@@ -1,10 +1,11 @@
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO_URI;
-const client = new MongoClient(uri, { useNewUrlParser: true });
 const searchProductById = require('../api_bestbuy/search_product');
 const getPl = require('../api_bestbuy/get_obj_elem');
 
 module.exports.buyGet = async function buyGet(userid, page) {
+  const client = new MongoClient(uri, { useNewUrlParser: true });
+
   await client.connect();
   let temp;
   const collection = client.db('dbBot');

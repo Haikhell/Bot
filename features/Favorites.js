@@ -3,7 +3,7 @@ const Eror = require('../Errors');
 module.exports = function(controller) {
   controller.hears('Favorites', 'message', async (bot, message) => {
     const tempObj = await getFavorites.fGet(message.user, 0);
-    if (tempObj.length === []) {
+    if (tempObj === []) {
       await bot.reply(message, Eror(310));
     } else {
       await bot.reply(message, {

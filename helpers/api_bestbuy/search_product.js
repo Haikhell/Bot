@@ -5,7 +5,7 @@ module.exports.searchById = async function searchProduct(id) {
     let temp = {
       name: data.products[0].name,
       url: data.products[0].url,
-      image: data.products[0].mediumImage,
+      image: data.products[0].image,
       sku: data.products[0].sku,
       salePrice: data.products[0].salePrice
     };

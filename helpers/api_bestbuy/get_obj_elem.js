@@ -3,13 +3,12 @@ const bby = require('bestbuy')(process.env.BESTBUY_API_TOKEN);
 /// get 8 products by id
 module.exports.getProduct = async function getProduct(id, page) {
   let data = await bby.products(`categoryPath.id=${id}`, {
-    show: 'name,url,mediumImage,sku,salePrice',
+    show: 'name,url,image,sku,salePrice',
     page: page,
     pageSize: 8
   });
   return data.products;
 };
-
 module.exports.getCategory = async function getCategory(name) {
   let data = await bby.categories(`name=${name}`, { show: 'all' });
   return data.categories[0].subCategories;
@@ -59,7 +58,7 @@ module.exports.getPlaginProduct = async function getPlaginProduct(masiv, page, i
   for (let i = 0; i < masiv.length; i++) {
     buttonsObj.push({
       title: masiv[i].name,
-      image_url: masiv[i].mediumImage,
+      image_url: masiv[i].image,
       subtitle: `Price ${masiv[i].salePrice}`,
       buttons: await buttonFormate(masiv[i], n)
     });
@@ -88,7 +87,7 @@ module.exports.getObjElement = async function getObjElement(masiv) {
       elements.push({
         name: data.products[i].name,
         sku: data.products[i].sku,
-        image_url: data.products[i].mediumImage,
+        image_url: data.products[i].image,
         price: data.products[i].salePrice,
         url: data.products[i].url
       });

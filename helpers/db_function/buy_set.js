@@ -34,7 +34,7 @@ module.exports = async function favoritesSave(userId, skuid) {
       data: dataBuy
     });
     await addUsers.findOneAndUpdate({ userId }, { $set: { products: pr } });
-    await delF(userId, skuid);
+    await delF.delFavoriteElem(userId, skuid);
     client.close();
   }
   return 'bought';

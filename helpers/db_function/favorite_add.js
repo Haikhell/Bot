@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO_URI;
 
 module.exports = async function favoritesSave(userId, skuid) {
-  const client = new MongoClient(uri, { useNewUrlParser: true });
+  const client = await new MongoClient(uri, { useNewUrlParser: true });
 
   await client.connect();
   let temp = false;

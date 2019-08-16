@@ -4,7 +4,7 @@ const searchProductById = require('../api_bestbuy/search_product');
 const getPl = require('../api_bestbuy/get_obj_elem');
 
 module.exports.buyGet = async function buyGet(userid, page) {
-  const client = new MongoClient(uri, { useNewUrlParser: true });
+  const client = await new MongoClient(uri, { useNewUrlParser: true });
 
   await client.connect();
   let temp;

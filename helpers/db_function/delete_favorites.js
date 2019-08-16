@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO_URI;
 
 module.exports.delFavoriteElem = async function delFavoriteElem(userid, sku) {
-  const client = new MongoClient(uri, { useNewUrlParser: true });
+  const client = await new MongoClient(uri, { useNewUrlParser: true });
   await client.connect();
   const collection = client.db('dbBot');
   const coll = collection.collection('users');

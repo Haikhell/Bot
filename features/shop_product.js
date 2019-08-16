@@ -25,19 +25,5 @@ module.exports = function(controller) {
         quick_replies: quick_reply_buttons
       });
     }
-
-    //     const mas = await getElem.getObjElement(temp);
-    //     const obj = await getElem.getPagin(mas, 0);
-    //     await bot.reply(message, {
-    //       attachment: {
-    //         type: 'template',
-    //         payload: {
-    //           template_type: 'generic',
-    //           elements: obj
-    //         }
-    //       }
-    //     });
-    //   }
-    // );
   );
 };

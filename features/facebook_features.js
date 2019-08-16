@@ -1,35 +1,9 @@
-/**
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License.
- */
-var bby = require('bestbuy')(process.env.BESTBUY_API_TOKEN);
-
-const getAllCategory = require('../helpers/api_bestbuy/get_shop_category');
-const Favorites_add = require('../helpers/db/db_function/favorite_add');
-const favorite_get = require('../helpers/db/db_function/favorite_get');
+const Favorites_add = require('../helpers/db_function/favorite_add');
+const favorite_get = require('../helpers/db_function/favorite_get');
 const getObj = require('../helpers/api_bestbuy/get_obj_elem');
-const buyProduct = require('../helpers/db/db_function/buy_set');
-const getBuyProduct = require('../helpers/db/db_function/buy_get');
-
-// async function getCategory(id) {
-//   console.log(await id);
-//   let data = await bby.categories(`categoryPath.id=${id}`, { show: 'all' });
-//   console.log(await data);
-// }
-async function getCategory(id) {
-  return bby.products(`categoryPath.id=${id}`, { show: 'name,url,image,sku,salePrice' }).then(function(data) {
-    return data.products[0];
-  });
-}
+const buyProduct = require('../helpers/db_function/buy_set');
 
 module.exports = function(controller) {
-  /**
-     * Detect when a message has a sticker attached
-     */
-  controller.hears(async (message) => message.sticker_id, 'message', async (bot, message) => {
-    await bot.reply(message, 'Cool sticker.');
-  });
-
   controller.on('facebook_postback', async (bot, message) => {
     if (message.postback.title === 'Next' || message.postback.title === 'Previe') {
       let str = message.postback.payload;

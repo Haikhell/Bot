@@ -1,4 +1,5 @@
-var getElem = require('../helpers/api_bestbuy/get_obj_elem');
+const getElem = require('../helpers/api_bestbuy/get_obj_elem');
+
 module.exports = function(controller) {
   controller.hears(
     [
@@ -16,12 +17,16 @@ module.exports = function(controller) {
     ],
     'message',
     async (bot, message) => {
-      let temp = await getElem.getCategory(message.message.quick_reply.payload);
-      let quick_reply_buttons = await getElem.getButtonsCategory(temp, 0, message.message.quick_reply.payload);
-      await bot.reply(message, {
-        text: ' Sub categori',
-        quick_replies: quick_reply_buttons
-      });
+      try {
+        let temp = await getElem.getCategory(message.message.quick_reply.payload);
+        let quick_reply_buttons = await getElem.getButtonsCategory(temp, 0, message.message.quick_reply.payload);
+        await bot.reply(message, {
+          text: ' Sub categori',
+          quick_replies: quick_reply_buttons
+        });
+      } catch (error) {
+        bot.reply(message, 'Sub category is empty');
+      }
     }
   );
 };

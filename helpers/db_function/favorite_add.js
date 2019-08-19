@@ -3,7 +3,6 @@ const uri = process.env.MONGO_URI;
 
 module.exports = async function favoritesSave(userId, skuid) {
   const client = await new MongoClient(uri, { useNewUrlParser: true });
-
   await client.connect();
   let temp = false;
   const collection = client.db('dbBot');

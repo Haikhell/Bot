@@ -2,12 +2,16 @@ const bby = require('bestbuy')(process.env.BESTBUY_API_TOKEN);
 
 /// get 8 products by id
 module.exports.getProduct = async function getProduct(id, page) {
-  let data = await bby.products(`categoryPath.id=${id}`, {
-    show: 'name,url,image,sku,salePrice',
-    page: page,
-    pageSize: 8
-  });
-  return data.products;
+  try {
+    let data = await bby.products(`categoryPath.id=${id}`, {
+      show: 'name,url,image,sku,salePrice',
+      page: page,
+      pageSize: 8
+    });
+    return data.products;
+  } catch (error) {
+    return null;
+  }
 };
 module.exports.getButtonsCategory = async function getButtonsCategory(masiv, page, nameCategory) {
   try {
@@ -33,45 +37,51 @@ module.exports.getButtonsCategory = async function getButtonsCategory(masiv, pag
       });
     }
     return buttonsObj;
-  } catch (error) {}
+  } catch (error) {
+    return null;
+  }
 };
 
-module.exports.getPlaginProduct = async function getPlaginProduct(masiv, page, idCategory, n) {
-  let buttonsObj = [];
-  if (page > 1) {
-    buttonsObj.push({
-      title: 'Previe',
-      buttons: [
-        {
-          type: 'postback',
-          title: 'Previe',
-          payload: `previe_${+page - 1}_${idCategory}`
-        }
-      ]
-    });
-  }
-  for (let i = 0; i < masiv.length; i++) {
-    buttonsObj.push({
-      title: masiv[i].name,
-      image_url: masiv[i].image,
-      subtitle: `Price ${masiv[i].salePrice}`,
-      buttons: await buttonFormate(masiv[i], n)
-    });
-  }
-  if (masiv.length === 8) {
-    buttonsObj.push({
-      title: 'Next',
-      buttons: [
-        {
-          type: 'postback',
-          title: 'Next',
-          payload: `next_${+page + 1}_${idCategory}`
-        }
-      ]
-    });
-  }
+module.exports.getPlaginProduct = async function getPlaginProduct(masiv, page, idCategory, n, what) {
+  try {
+    let buttonsObj = [];
+    if (page > 1) {
+      buttonsObj.push({
+        title: 'Previe',
+        buttons: [
+          {
+            type: 'postback',
+            title: 'Previe',
+            payload: `previe_${+page - 1}_${idCategory}_${what}`
+          }
+        ]
+      });
+    }
+    for (let i = 0; i < masiv.length; i++) {
+      buttonsObj.push({
+        title: masiv[i].name,
+        image_url: masiv[i].image,
+        subtitle: `Price ${masiv[i].salePrice}`,
+        buttons: await buttonFormate(masiv[i], n)
+      });
+    }
+    if (masiv.length === 8) {
+      buttonsObj.push({
+        title: 'Next',
+        buttons: [
+          {
+            type: 'postback',
+            title: 'Next',
+            payload: `next_${+page + 1}_${idCategory}_${what}`
+          }
+        ]
+      });
+    }
 
-  return buttonsObj;
+    return buttonsObj;
+  } catch (error) {
+    return null;
+  }
 };
 
 module.exports.getCategory = async function getCategory(name) {

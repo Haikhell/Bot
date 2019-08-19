@@ -1,4 +1,4 @@
-var mas = [
+const mas = [
   {
     name: 'Gift Ideas',
     id: 'abcat0010000'

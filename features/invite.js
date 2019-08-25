@@ -1,5 +1,5 @@
 const ref = require('../helpers/db_function/ref_get');
-//m.me/732890700500236?${refs}
+
 http: module.exports = function(controller) {
   controller.hears('To invite a friend', 'message', async (bot, message) => {
     const refs = await ref.refGet(message.user);

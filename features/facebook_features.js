@@ -4,9 +4,9 @@ const buyProduct = require('../helpers/db_function/buy_set');
 const getAllCategory = require('../helpers/api_bestbuy/get_shop_category');
 const getFavorites = require('../helpers/db_function/favorite_get');
 const getFBuy = require('../helpers/db_function/buy_get');
+const findRef = require('../helpers/db_function/find_ref');
 const menu = {
   text: 'Here is a menu!',
-  composer_input_disabled: false,
   quick_replies: [
     {
       title: 'My purchases ',
@@ -59,6 +59,9 @@ module.exports = function(controller) {
     } else if (message.postback.title === 'Add to favorite') {
       await bot.reply(message, await Favorites_add(message.user, message.text));
     } else if (message.postback.title === 'Get Started') {
+      let str = await message.postback.referral.ref;
+      let tempStr = await str.split('_');
+      await findRef.refGet(message.user, tempStr[1]);
       await bot.reply(message, await menu);
     } else if (message.postback.title === 'buy') {
       let callBack = await buyProduct(message.user, message.postback.payload);

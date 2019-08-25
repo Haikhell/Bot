@@ -16,7 +16,6 @@ module.exports = function(controller) {
         }
       });
     } catch (error) {
-      console.log(error);
       bot.reply(message, await Eror(305));
     }
   });

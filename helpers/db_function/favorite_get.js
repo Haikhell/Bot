@@ -26,7 +26,6 @@ module.exports.fGet = async function favoritesGet(userid, page) {
   for (let i = start; i < end; i++) {
     mas.push(await searchProductById.searchById(res.products[i]));
   }
-  console.log(mas);
   temp = await getPl.getPlaginProduct(mas, page, userid, 1, 'favorites');
   await client.close();
   return temp;

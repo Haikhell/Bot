@@ -6,10 +6,10 @@ const delF = require('../db_function/delete_favorites');
 module.exports = async function favoritesSave(userId, skuid) {
   const client = await new MongoClient(uri, { useNewUrlParser: true });
 
-  let dd = await String(today.getDate()).padStart(2, '0');
-  let mm = await String(today.getMonth() + 1).padStart(2, '0');
-  let yyyy = await today.getFullYear();
-  dataBuy = await (dd + '/' + mm + '/' + yyyy);
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0');
+  let yyyy = today.getFullYear();
+  dataBuy = dd + '/' + mm + '/' + yyyy;
   await client.connect();
   const collection = client.db('dbBot');
   const addUsers = collection.collection('userBuy');

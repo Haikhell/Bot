@@ -2,7 +2,6 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO_URI;
 const searchProductById = require('../api_bestbuy/search_product');
 const getPl = require('../api_bestbuy/get_obj_elem');
-
 module.exports.buyGet = async function buyGet(userid, page) {
   const client = await new MongoClient(uri, { useNewUrlParser: true });
   const lentM = 8;

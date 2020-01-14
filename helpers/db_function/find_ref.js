@@ -3,7 +3,7 @@ const uri = process.env.MONGO_URI;
 
 /// get Product
 module.exports.refGet = async function refGet(userid, ref_user) {
-  const client = await new MongoClient(uri, { useNewUrlParser: true });
+  const client = new MongoClient(uri, { useNewUrlParser: true });
   await client.connect();
   const collection = client.db('dbBot');
   const coll = collection.collection('usersRef');
@@ -23,7 +23,7 @@ module.exports.refGet = async function refGet(userid, ref_user) {
     }
     if (temp) {
       let c = +res.count + 1;
-      await mas.push(userid);
+      mas.push(userid);
       await coll.findOneAndUpdate({ userId: ref_user }, { $set: { humans: mas, count: c } });
     }
   } else {

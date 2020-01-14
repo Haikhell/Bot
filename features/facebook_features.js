@@ -51,7 +51,7 @@ module.exports = function(controller) {
         }
       });
     } else if (message.postback.title === 'Cataloge') {
-      const categ = await getAllCategory();
+      const categ = getAllCategory();
       await bot.reply(message, {
         text: 'All shop category',
         quick_replies: categ
@@ -62,13 +62,13 @@ module.exports = function(controller) {
       let str = await message.postback.referral.ref;
       let tempStr = await str.split('_');
       await findRef.refGet(message.user, tempStr[1]);
-      await bot.reply(message, await menu);
+      await bot.reply(message, menu);
     } else if (message.postback.title === 'buy') {
       let callBack = await buyProduct(message.user, message.postback.payload);
 
       await bot.reply(message, callBack);
     } else {
-      await bot.reply(message, await menu);
+      await bot.reply(message, menu);
     }
   });
 };
